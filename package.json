@@ -1,6 +1,6 @@
 {
   "name": "patternlab-markdown-annotations",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Convert markdown files into an annotations.js file for use in Pattern Lab",
   "main": "index.js",
   "scripts": {
