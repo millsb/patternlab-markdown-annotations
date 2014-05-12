@@ -65,9 +65,11 @@ Converter.prototype = {
       comment: ''
     };
 
-    _(lines).each(function(line) {
+    _(lines).each(function(line, i) {
       if (line.indexOf(commentPrefix) !== -1) {
-        chunks.push(chunk);
+        if (chunk.el && chunk.el !== '') {
+            chunks.push(chunk);
+        }
 
         var heading = line.replace(commentPrefix, '');
         heading = heading.split("|");
@@ -78,6 +80,10 @@ Converter.prototype = {
         }
       } else {
         chunk.comment = chunk.comment + line + os.EOL;
+      }
+
+      if (i == lines.length - 1) {
+          chunks.push(chunk);
       }
     });
 
@@ -96,7 +102,7 @@ Converter.prototype = {
     var filename = "annotations.js";
     var content = "var comments = { 'comments':" + JSON.stringify(this.annotations) + "};";
     fs.writeFile(this.outPath + path.sep + filename, content, function(err) {
-      if (err) throw err;
+      if (err) console.log(err);
       console.log('Annotations written.');
     });
 
